@@ -1,0 +1,38 @@
+## FJ #########################################################################
+N = 40
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.002    0.002 ../src/discreteFourierBesselTrafo.py:32(FiskJohnsonContinuousFuncFWD)
+        1    0.088    0.088   11.981   11.981 ../src/convolveRadiallySymmetricFunctions.py:114(FiskJohnsonConvolvedResponse)
+     1415    2.999    0.002    5.844    0.004 ../src/discreteFourierBesselTrafo.py:152(FiskJohnsonDiscreteFuncBCKWD)
+     1414    2.714    0.002    6.046    0.004 ../src/discreteFourierBesselTrafo.py:91(FiskJohnsonDiscreteFuncFWD)
+
+N = 80
+
+python main_pstat.py profFJ.dat 
+Fri Oct 28 14:19:02 2016    profFJ.dat
+
+         2368698 function calls (2368606 primitive calls) in 34.966 seconds
+
+   Ordered by: function name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    0.006    0.006 ../src/discreteFourierBesselTrafo.py:32(FiskJohnsonContinuousFuncFWD)
+        1    0.091    0.091   30.008   30.008 ../src/convolveRadiallySymmetricFunctions.py:114(FiskJohnsonConvolvedResponse)
+     1415    6.075    0.004   14.950    0.011 ../src/discreteFourierBesselTrafo.py:152(FiskJohnsonDiscreteFuncBCKWD)
+     1414    5.608    0.004   14.961    0.011 ../src/discreteFourierBesselTrafo.py:91(FiskJohnsonDiscreteFuncFWD)
+
+
+## CB #########################################################################
+
+python main_pstat.py profCB.dat 
+Fri Oct 28 14:34:47 2016    profCB.dat
+
+         2374258 function calls (2374166 primitive calls) in 330.674 seconds
+
+   Ordered by: function name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    2.583    2.583  326.028  326.028 ../src/convolveRadiallySymmetricFunctions.py:51(CreeBonesConvolvedResponse)
+     2829  279.433    0.099  323.445    0.114 ../src/discreteFourierBesselTrafo.py:221(CreeBonesDiscreteFunc)
+
