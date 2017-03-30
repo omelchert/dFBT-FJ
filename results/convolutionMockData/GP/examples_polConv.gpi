@@ -1,0 +1,108 @@
+set terminal postscript enhanced eps color lw 1 16 font "Times-Roman"
+set output "./FIGS/examples_polConv.eps"
+
+LW=1.
+PS=1.
+set style line 1 lw LW lt 1 ps PS  pt 4 lc rgb "black" dashtype 1 
+set style line 2 lw LW lt 1 ps PS  pt 5 lc rgb "blue" dashtype '-' 
+set style line 3 lw LW lt 1 ps PS  pt 6 lc rgb "blue" dashtype '-.'
+set style line 4 lw LW lt 1 ps PS  pt 7  lc rgb "blue" dashtype '-..'
+set style line 5 lw LW lt 1 ps PS  pt 8  lc rgb "blue" dashtype '.'
+
+set size 0.72,1.
+set tics nomirror
+set multiplot
+
+set label 11 "{/Times-Roman (a)}" at screen 0.02,0.98 center
+set tmargin at screen 0.98
+set bmargin at screen 0.65
+set lmargin at screen 0.1
+set rmargin at screen 0.68
+set xr [0:1]
+set yr [0:1.05]
+set key samplen 1.2 at grap 0.28,0.55
+set ytics (0,0.2,0.4,0.6,0.8,1.0,1.2)
+set xtics (0,0.2,0.4,0.6,0.8,"{/Times-Italic r}" 1)
+#set label 12 "{/Times-Italic h(r)}" at screen 0.02,0.775 rotate by 90
+set label 12 "{/Helvetica polConv[{/Times-Italic f},{/Times-Italic g}_{/Symbol=10 e}]}{/Times-Italic (r;T,N)}" at screen 0.02,0.675 rotate by 90
+set label 13 "{/Times-Italic T} = 1\n{/Times-Italic N} = 100\n{/Times-Italic a}_{/=10 0} = 0.01" at screen 0.12,0.93
+
+p '<grep "BCKWD " ../data/polConvTest_N15_A00.01_E00.002.dat' u 2:3 w l ls 1 t "{/Times-Italic f(r)}"\
+, '<grep "BCKWD " ../data/polConvTest_N100_A00.01_E00.002.dat' u 2:4 w l ls 2 t "{/Symbol e} = 0.002"\
+, '<grep "BCKWD " ../data/polConvTest_N100_A00.01_E00.02.dat' u 2:4 w l ls 3 t "0.02"\
+, '<grep "BCKWD " ../data/polConvTest_N100_A00.01_E00.04.dat' u 2:4 w l ls 4 t "0.04"\
+, '<grep "BCKWD " ../data/polConvTest_N100_A00.01_E00.08.dat' u 2:4 w l ls 5 t "0.08"
+
+unset label 11
+unset label 12
+unset label 13
+
+set tmargin at screen 0.96
+#set bmargin at screen 0.75
+set bmargin at screen 0.75
+#set lmargin at screen 0.4
+set lmargin at screen 0.44
+set rmargin at screen 0.66
+set xr [0:100]
+set yr [0.01:10]
+set ytics (0.001,0.01,0.1,1.,"{/Symbol e}_{/=10 RMS}" 10.)
+set xtics (0,25,50,75,"{/Times-Italic N}" 100)
+set key samplen 1.2 at graph 1.,0.92
+set logs y
+set format y "10^{%L}"
+
+p '../data/polConvTest_varyN_A00.01_E00.01.dat' u 1:2 w l ls 1 dashtype '-' t "{/Symbol e} = 0.01"\
+, '../data/polConvTest_varyN_A00.01_E00.02.dat' u 1:2 w l ls 1 dashtype '-.' t "0.02"\
+, '../data/polConvTest_varyN_A00.01_E00.04.dat' u 1:2 w l ls 1 dashtype '.' t "0.04"\
+
+unset logs y
+set format y "%g"
+
+
+
+
+
+set label 31 "{/Times-Roman (b)}" at screen 0.02,0.58 center
+set tmargin at screen 0.58
+set bmargin at screen 0.25
+set lmargin at screen 0.1
+set rmargin at screen 0.68
+set xr [0:1]
+set yr [0:1.05]
+set key samplen 1.2 at grap 0.28,0.55
+set ytics (0,0.2,0.4,0.6,0.8,1.0,1.2)
+set xtics (0,0.2,0.4,0.6,0.8,"{/Times-Italic r}" 1)
+set label 32 "{/Helvetica polConv[{/Times-Italic f},{/Times-Italic g}_{/Symbol=10 e}]}{/Times-Italic (r;T,N)}" at screen 0.02,0.275 rotate by 90
+#set label 32 "{/Times-Italic h(r)}" at screen 0.02,0.375 rotate by 90
+set label 33 "{/Times-Italic T} = 1\n{/Times-Italic N} = 40\n{/Times-Italic a}_{/=10 0} = 0.2" at screen 0.12,0.53
+
+p '<grep "BCKWD " ../data/polConvTest_N40_A00.2_E00.002.dat' u 2:3 w l ls 1 t "{/Times-Italic f(r)}"\
+, '<grep "BCKWD " ../data/polConvTest_N40_A00.2_E00.002.dat' u 2:4 w l ls 2 t "{/Symbol e} = 0.002"\
+, '<grep "BCKWD " ../data/polConvTest_N40_A00.2_E00.04.dat' u 2:4 w l ls 3 t "0.04"\
+, '<grep "BCKWD " ../data/polConvTest_N40_A00.2_E00.1.dat' u 2:4 w l ls 4 t "0.1"\
+, '<grep "BCKWD " ../data/polConvTest_N40_A00.2_E00.2.dat' u 2:4 w l ls 5 t "0.2"
+
+unset label 31
+unset label 32
+unset label 33
+
+set tmargin at screen 0.56 
+set bmargin at screen 0.4
+set lmargin at screen 0.44
+set rmargin at screen 0.66
+set xr [0:100]
+set yr [0.001:10]
+set ytics (0.001,0.01,0.1,1.,"{/Symbol e}_{/=10 RMS}" 10.)
+set xtics (0,25,50,75,"{/Times-Italic N}" 100)
+set key samplen 1.2 at graph 1.,0.92
+set logs y
+set format y "10^{%L}"
+
+p '../data/polConvTest_varyN_A00.2_E00.01.dat' u 1:2 w l ls 1 dashtype '-' t "{/Symbol e} = 0.01"\
+, '../data/polConvTest_varyN_A00.2_E00.02.dat' u 1:2 w l ls 1 dashtype '-.' t "0.02"\
+, '../data/polConvTest_varyN_A00.2_E00.04.dat' u 1:2 w l ls 1 dashtype '.' t "0.04"\
+
+unset logs y
+set format y "%g"
+
+unset multiplot

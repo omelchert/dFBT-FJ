@@ -193,7 +193,7 @@ def FiskJohnsonDiscreteFuncBCKWD(r,F0,T):
         
         # REVERSE TRANSFORM YIELDING ARBITRARY FUNCTION VALUES f(xT) FROM ITS 
         # FOURIER BESSEL TRANSFORM F(j[m]/T) m=0...N-1 AT SCALED BESSEL ZEROS 
-        # j[m]/T. SEE EQ. [10] OF REF. [1].
+        # j[m]/T. SEE EQ. (10) OF REF. [1].
         x = r/T
         f[x<1] = 2.0/T**2*np.sum(
             F0*scs.j0(jm*x[x<1,np.newaxis])/scs.j1(jm)**2, 
