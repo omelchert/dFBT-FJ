@@ -1,0 +1,182 @@
+\begin{thebibliography}{10}
+
+\bibitem{Talman:1978}
+J.~D. Talman.
+\newblock {Numerical Fourier and Bessel transforms in logarithmic variables}.
+\newblock {\em J. Comput. Phys.}, 29:35, 1978.
+
+\bibitem{FiskJohnson:1987}
+H.~Fisk~Johnson.
+\newblock {An improved method for computing a discrete Hankel transform}.
+\newblock {\em Comput. Phys. Commun.}, 43:181, 1987.
+
+\bibitem{Higgins:1988}
+W.~E. Higgins and D.~C. Munson.
+\newblock {A Hankel Transform Approach to Tomographic Image Reconstruction}.
+\newblock {\em IEEE Trans. Med. Imaging}, 7(1):59--72, 1988.
+
+\bibitem{GuizarSicairos:2004}
+M.~Guizar-Sicairos and J.~C. Guti{\'e}rrez-Vega.
+\newblock Computation of quasi-discrete hankel transforms of integer order for
+  propagating optical wave fields.
+\newblock {\em J. Opt. Soc. Am. A}, 21(1):53, 2004.
+
+\bibitem{CONV:1997}
+L.~Wang, S.~L. Jacques, and L.~Q. Zheng.
+\newblock {CONV - convolution for responses to a finite diameter photon beam
+  incident on multi-layered tissues}.
+\newblock {\em Comput. Methods Programs Biomed.}, 54:141, 1997.
+\newblock See: http://omlc.org/software/mc/ [Online; accessed 2017-03-30].
+
+\bibitem{Baddour:2015}
+N.~Baddour and U.~Chouinard.
+\newblock {Theory and operational rules for the discrete Hankel transform}.
+\newblock {\em J. Opt. Soc. Am. A}, 32:611, 2015.
+
+\bibitem{Baddour:2009}
+N.~Baddour.
+\newblock {Operational and convolution properties of two-dimensional Fourier
+  transforms in polar coordinates}.
+\newblock {\em J. Opt. Soc. Am. A}, 26:1767, 2009.
+
+\bibitem{MCML:1995}
+L.~Wang, S.~L. Jacques, and L.~Q. Zheng.
+\newblock {MCML - Monte Carlo modeling of photon transport in multi-layered
+  tissues}.
+\newblock {\em Comput. Methods Programs Biomed.}, 47:131, 1995.
+\newblock See: http://omlc.org/software/mc/ [Online; accessed 2017-03-30].
+
+\bibitem{comment:polConv}
+Note that in Ref.\ \cite{Baddour:2009}, Eq.~(\ref{eq:polConv}) is formulated in
+  terms of the $2$D Fourier transform $F_0^{\rm FT}$ of $f$, which, in case of
+  a radially symmetric functions is related to the Fourier-Bessel transform via
+  $F_0^{\rm FT}(\rho)=2\pi F_0(\rho)$.
+
+\bibitem{Cree:1993}
+M.~J. Cree and P.~J. Bones.
+\newblock {Algorithms to numerically evaluate the Hankel transform}.
+\newblock {\em Computers Math. Applic.}, 26(1):1, 1993.
+
+\bibitem{Paltauf:2000}
+G.~Paltauf and H.~Schmidt-Kloiber.
+\newblock {Pulsed optoacoustic characterization of layered media}.
+\newblock {\em J. Appl. Phys.}, 88:1624--1631, 2000.
+
+\bibitem{Paltauf:1997}
+G.~Paltauf and H.~Schmidt-Kloiber.
+\newblock {Measurement of laser-induced acoustic waves with a calibrated
+  optical transducer}.
+\newblock {\em J. Appl. Phys.}, 82:1525, 1997.
+
+\bibitem{Paltauf:1998}
+G.~Paltauf, H.~Schmidt-Kloiber, and M.~Frenz.
+\newblock Photoacoustic waves excited in liquids by fiber-transmitted laser
+  pulses.
+\newblock {\em J. Acoust. Soc. Am.}, 104:890--897, 1998.
+
+\bibitem{DAlessandro:2012}
+B.~D'Alessandro and A.~P. Dhawan.
+\newblock {3-D Volume Reconstruction of Skin Lesions for Melanin and Blood
+  Volume Estimation and Lesion Severity Analysis}.
+\newblock {\em IEEE Trans. Med. Imaging}, 31:2083, 2012.
+
+\bibitem{Blumenroether:2016}
+E.~Blumenr\"other, O.~Melchert, M.~Wollweber, and B.~Roth.
+\newblock {Detection, numerical simulation and approximate inversion of
+  optoacoustic signals generated in multi-layered PVA hydrogel based tissue
+  phantoms}.
+\newblock {\em Photoacoustics}, 4:125--132, 2016.
+
+\bibitem{Wilson:1990}
+B.~C. Wilson and S.~L. Jacques.
+\newblock {Optical reflectance and transmittance of tissues: principles and
+  applications}.
+\newblock {\em IEEE J. Quantum Electron.}, 26:2186, 1990.
+
+\bibitem{Alerstam:2010}
+E.~Alerstam, W.~C.~Y. Lo, T.~D. Han, J.~Rose, S.~Andersson-Engels, and
+  L.~Lilge.
+\newblock {Next-generation acceleration and code optimization for light
+  transport in turbid media using GPUs}.
+\newblock {\em Biomed. Opt. Express}, 1:658--675, 2010.
+
+\bibitem{Townsend:2015}
+A.~Townsend.
+\newblock {A fast analysis-based discrete Hankel transform using asymptotic
+  expansions}.
+\newblock {\em SIAM J. Numer. Anal.}, 53:1897--1917, 2015.
+
+\bibitem{Dovlo:2015}
+E.~Dovlo and N.~Baddour.
+\newblock {Toolbox for the Computation of 2D Fourier Transforms in Polar
+  Coordinates via Maple}.
+\newblock {\em Journal of Open Research Software}, 3:e3, 2015.
+
+\bibitem{Baddour:2017}
+N.~Baddour and U.~Chouinard.
+\newblock {Matlab Code for the Discrete Hankel Transform}.
+\newblock {\em Journal of Open Research Software}, 5(1):4, 2017.
+
+\bibitem{Barnes:2010}
+N.~Barnes.
+\newblock Publish your computer code: it is good enough.
+\newblock {\em Nature}, 467:753, 2010.
+
+\bibitem{Ince:2012}
+D.~C. Ince, L.~Hatton, and J.~Graham-Cumming.
+\newblock {The case for open computer programs}.
+\newblock {\em Nature}, 482:485--488, 2012.
+
+\bibitem{Sandve:2013}
+G.~K. Sandve, A.~Nekrutenko, J.~Taylor, E.~Hovig, and P.~E. Bourne.
+\newblock {Ten Simple Rules for Reproducible Computational Research}.
+\newblock {\em PLoS Comput. Biol.}, 9:e1003285, 2013.
+
+\bibitem{Melchert_gitHub_dFBT:2016}
+{dFBT-FJ: Efficient polar convolution based on the discrete Fourier-Bessel
+  transform for application in computational biophotonics}.
+\newblock {https://github.com/omelchert/dFBT-FJ.git}, 2016.
+\newblock [Online; accessed 2017-03-19].
+
+\bibitem{Oliphant:2007}
+T.~E. Oliphant.
+\newblock {Python for Scientific Computing}.
+\newblock {\em CS\&E}, 9(3):10--20, 2007.
+
+\bibitem{Jones:2001}
+E.~Jones, T.~E. Oliphant, P.~Peterson, and {many others}.
+\newblock {SciPy}: Open source scientific tools for {Python}.
+\newblock {http://www.scipy.org/}, 2001.
+\newblock [Online; accessed 2017-03-06].
+
+\bibitem{Gnuplot:2015}
+T.~Williams, C.~Kelley, and {many others}.
+\newblock Gnuplot 5.0: an interactive plotting program.
+\newblock {http://gnuplot.sourceforge.net/}, 2015.
+\newblock [Online; accessed 2017-03-06].
+
+\bibitem{Noble:2009}
+W.~S. Noble.
+\newblock {A Quick Guide to Organizing Computational Biology Projects}.
+\newblock {\em PLoS Comput. Biol.}, 5(7):e1000424, 2009.
+
+\bibitem{Baxter:2006}
+S.~M. Baxter, S.~W. Day, J.~S. Fetrow, and S.~J. Reisinger.
+\newblock {Scientific Software Development Is Not an Oxymoron}.
+\newblock {\em PLoS Comput. Biol.}, 2(9):e87, 2006.
+
+\bibitem{Wilson:2014}
+G.~Wilson, D.~A. Aruliah, C.~T. Brown, N.~P. Chue~Hong, M.~Davis, R.~T. Guy,
+  S.~H.~D. Haddock, K.~D. Huff, I.~M. Mitchell, M.~D. Plumbley, B.~Waugh, E.~P.
+  White, and P.~Wilson.
+\newblock {Best Practices for Scientific Computing}.
+\newblock {\em PLoS Biol.}, 12(1):e1001745, 2014.
+
+\bibitem{Purcell:2003}
+S.~Purcell and {many others}.
+\newblock {{unittest} - Unit testing framework}.
+\newblock {https://docs.python.org/3/library/unittest.html}, 2003.
+\newblock The {Python} unittest module comprises a software development tool
+  for constructing testcases and running tests. [Online; accessed 2017-03-28].
+
+\end{thebibliography}

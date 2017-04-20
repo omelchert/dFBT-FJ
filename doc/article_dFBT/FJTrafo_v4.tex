@@ -8,22 +8,18 @@
 
 % TITLE PAGE {{{1
 
-%\title[dFBT for application in biophotonics]{Efficient polar convolution based
-%on the discrete Fourier-Bessel transform for application in computational
-%biophotonics}
-
 \title[dFBT: testing, benchmarking, and application in biophotonics]
-{Efficient polar convolution based on the discrete Fourier-Bessel transform: 
-testing, benchmarking and application in computational biophotonics}
+{An efficient procedure for custom beam-profile convolution in polar coordinates: 
+testing, benchmarking and application in tissue optics}
 
-\ead{oliver.melchert@hot.uni-hannover.de}
 \author{O.\ Melchert, M.\ Wollweber and B.\ Roth}
 
-\address{Hanover Centre for Optical Technologies (HOT), 
+\address{Hannover Centre for Optical Technologies (HOT), 
 Leibniz Universit\"at Hannover, 
 Nienburger Str.\,17, 
 D-30167 Hannover, Germany}
 
+\ead{oliver.melchert@hot.uni-hannover.de}
 
 \begin{abstract}
 We discuss efficient algorithms for the accurate forward and reverse evaluation
@@ -38,17 +34,18 @@ coordinate values, only.
 based on a straight forward numerical quadrature of the underlying integral
 transform and asses its efficienty for two benchmark Fourier-Bessel pairs. 
   An application to the problem of finite-size beam-shape convolution in polar
-coordinates, relevant in the context of tissue optics and optoacoustics, is
-used to illustrate the versatility and computational efficiency of the
-numerical procedure.
+coordinates, relevant in the context of tissue optics, is used to illustrate
+the versatility and computational efficiency of the numerical procedure.
   Further, we address the important issue of testing research code written in
 the {\tt{python}} scripting language by using its off-the-shelf unit testing
 library {\tt{unittest}}.
 \end{abstract}
 
+
 % Keywords
-\noindent{\it Keywords:} Discrete Fourier-Bessel transform of order zero, 
-polar convolution, computational biophotonics, Python, unit testing
+\noindent{\it Keywords:} computational biophotonics, beam-profile convolution,
+polar convolution, discrete Fourier-Bessel transform, Python, unit testing
+
 
 % PACS numbers
 % 02.70.-c -- Computational techniques in mathematical methods in physics
@@ -66,28 +63,28 @@ polar convolution, computational biophotonics, Python, unit testing
 
 % Topic of the article:
 % (1) Fourier Bessel intro
-The Fourier-Bessel transform (FBT; also referred to as ``$0$th order Hankel
-transform'') and, more generally, the $n$th order Hankel transform (HT),
+The Fourier-Bessel transform (FBT; also referred to as ``$0$-th order Hankel
+transform'') and, more generally, the $n$-th order Hankel transform (HT),
 represent mathematical tools that appear in numerous computational approaches
 in science and engineering.  Among those are, e.g., applications in atomic
 scattering \cite{Talman:1978}, electron microscopy \cite{FiskJohnson:1987},
-tomographic image reconstruction \cite{Higgins:1988}, and beam propagation
-through axially symmetric systems \cite{GuizarSicairos:2004}.  
+tomographic image reconstruction \cite{Higgins:1988}, beam propagation
+through axially symmetric systems \cite{GuizarSicairos:2004}, and, tissue
+optics \cite{CONV:1997}.  
 The underlying theory and the operational rules for use with those transforms
 are thoroughly discussed in Ref.~\cite{Baddour:2015} where also an extensive
 review of the scientific literature can be found.
-
 % (2) Polar convolution intro
 In addition to the above applications, the FBT allows for the convolution of
 two radially symmetric functions in polar coordinates \cite{Baddour:2009}, a
 computational tool in its own right.  This is viable since the general $2$D
 convolution of two functions can be expressed in terms of their respective
-Fourier series expansion, exhibiting a nontrivial relation to the $n$th order
-(reverse) Hankel transform. 
+Fourier series expansion, exhibiting a nontrivial relation to the $n$-th order
+reverse Hankel transform. 
 However, if both functions are restricted to be radially symmetric, their
 respective Fourier series expansions are nonzero for the term $n=0$ only, and,
-consequently, their convolution can be shown to relate to a FBT, see, e.g., 
-Ref.~\cite{Baddour:2009} which elaborates  on the minutiae of this issue.  
+consequently, their convolution can be shown to relate to a FBT 
+\cite{Baddour:2009}.  
 
 % Motivation 
 In the presented article, we aim to draw some more attention to an efficient 
@@ -100,17 +97,20 @@ Our motivation to study the Fisk-Johnson dHT procedure is based on its
 efficiency for the purpose of polar convolution, requiring a discrete
 Fourier-Bessel transform (dFBT), i.e.\ a dHT of order zero, only. As discussed
 in the seminal article \cite{FiskJohnson:1987}, the algorithmic procedure might
-lead to a significant reduction in computation time, if, subsequent to a Hankel
-transform a follow up back transformation is required.  Here, we present a
-particular application in computational biophotonics where this comes in handy. 
-More precisely, we consider a problem in tissue optics where the task is to
-convolve the Green's function response of a (possibly) multilayered tissue 
-with a custom irradiation source profile to yield the response to a laser-beam 
-of finite diameter.
-Therein, the Green's function response is obtained from computer simulations 
-involving an infinitely thin ``pencil'' laser-beam \cite{MCML:1995}, thus 
-resulting from a complex measurement process that yields the obective 
-function on a finite sequence of equidistant sample points.
+lead to a significant reduction in computation time, if, subsequent to a HT a 
+follow up reverse transform is required.  
+The specific objective of this study is to explore this potential benefit for
+applications in computational biophotonics that require a large number of
+forward and reverse dHTs.  
+We apply the resulting procedure to solve a problem in tissue
+optics where the task is to convolve the Green's function response of a
+multilayered tissue with a custom irradiation source profile to yield
+the response to a laser-beam of finite extend.
+Therein, the Green's function response is obtained from Monte Carlo simulations
+of an infinitely thin ``pencil'' laser-beam, incident to a layered tissue sample 
+\cite{MCML:1995}. It thus 
+results from a complex measurement process that yields the obective 
+function on a finite sequence of, say, equidistant sample points.
 While this particular use case requires a dHT of order zero only, other
 examples involving $n$-th order dHTs can be found, see, e.g.\ Ref.\
 \cite{GuizarSicairos:2004} discussing beam propagation through axially
@@ -472,14 +472,17 @@ accurate than that of a ``steep'' objective function.
 % 1}}}
 
 % APPLICATION TO BEAM SHAPE CONVOLUTION {{{1
-\section{Application to beam-shape convolution in polar coordinates}
+\section{Beam-profile convolution in polar coordinates}
 \label{sec:polarConv}
 
 % (0) Consider layered homogeneous absorbing/scattering media.
-An application of the efficient Fisk-Johnson polar convolution algorithm to a
-particular problem in computational biophotonics is illustrated in the
-remainder. It provides a solution to the issue of computing the material
-response to custom radially symmetric laser beams of finite extend for layered
+In the remainder we consider a paradigmatic problem in computational
+biophotonics that requires a large number of polar convolutions, and,
+consequently, many forward and reverse dFBTs. One might thus benefit from the
+potential time-efficiency of the algorithmic procedure outlined in section
+\ref{sec:dFBT} and assessed in section \ref{sec:examples}.  In procedural terms,
+we provide a general solver for the problem of computing the material response
+to radially symmetric custom laser beams of finite extend for layered
 homogeneous media, given the corresponding Green's function response of the
 medium. 
 To illustrate the computational procedure we considered the simple but
@@ -525,7 +528,7 @@ $g$ & $\ell_{\rm mfp}$  & $\tilde{\ell}_{\rm mfp}$   & $d_{\rm p}$ & $N_z$ & $\D
 \paragraph{Monte Carlo modelling of the Greens function response:}
 For our numerical experiments we computed the Green's function $G$ of the
 absorbed energy density for the above setup as the material response to an
-infinitely thin ``pencil'' beam using the publicly available {\rm C} code {\tt
+infinitely thin ``pencil'' beam using the publicly available {\tt C} code {\tt
 MCML} \cite{MCML:1995}. It solves the problem of steady-state light transport
 in terms of a Monte Carlo approach to photon migration in layered media and
 provides the accumulated observables on a homogeneous polar grid, i.e.\
@@ -540,25 +543,6 @@ the fluence-rate along the beam-axis reduces to its $1/e$-value
 \cite{MCML:1995,Wilson:1990}.  For completeness, one might perform the
 numerical experiments as well by one of {\tt MCML}s descendants designed for
 layered homogeneous media, as, e.g., {\tt GPU-MCML} \cite{Alerstam:2010}.
-
-\paragraph{Material response to laser beams with finite extend:}
-% (2) Given GreensFunc -> distribution of absorbed energy density W.
-In order to obtain the desired material response $W(r,z)$ to an extended
-radially symmetric laser beam, the Green's function $G(r,z)$ needs to be
-convolved using an appropriate transverse ISP $f(r)$.  
-% (3) Issues with CONV
-In principle this can be done using the publicly available {\tt C} 
-code {\tt CONV} \cite{CONV:1997}, that implements a top-hat and a Gaussian ISP.  
-However, note that since {\tt CONV} features only these two ISPs it is of 
-rather limited use. Albeit allowing for a highly efficient direct convolution
-involving the solution of $1$D integrals only, both beam profiles are not
-consistent with actual profiles observed in laboratory experiments, see
-Refs.~\cite{Paltauf:1997, Paltauf:1998, Paltauf:2000, DAlessandro:2012,
-Blumenroether:2016}.  
-% (4) Remendy: general purpose routive needed 
-Further, on a more general basis, a computationally efficient and more
-versatile solution procedure that allows for convolution with custom ISPs seems
-to be of value.
 
 %%% BEGIN: FIGURE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -585,41 +569,25 @@ individual subfigures.
 \end{figure}
 %%% END: FIGURE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% (5) laser beams with finite extend
-In this regard we follow a different approach by solving the 2D convolution
-problem in terms of the Fourier-Bessel transform in polar coordinates
-\cite{CONV:1997,Baddour:2009} 
-\begin{equation}
-W(r,z) = \mathsf{polConv}[f,G](r,z) = 2 \pi f_0 \int_0^\infty G_0(\rho,z) F_0(\rho) J_0(\rho r)\rho~{\rm d}\rho, \label{eq:polConvW}
-\end{equation}
-following the Fisk-Johnson discretization procedure detailed in section
-\ref{sec:dFBT}. 
-Therein, $f(r)$ signifies a custom ``donut'' ISP
-\begin{equation}
-f(r) = 
-\cases{
-\exp\{-(r-r_0)^2/a_0^2\} &for $r<r_0$\\
-1 &for $r_0\le r \le r_1$\\
-\exp\{-(r-r_1)^2/a_1^2\} &for $r>r_1$\\},\label{eq:donut}
-\end{equation}
-and $G$ stands for the laser absorption Green's function computed for an 
-infinitely narrow laser beam, incident upon the material surface.
-The respective dFBTs are given by $F_0$ and $G_0$.
-In the above equation, $f_0$ allows to scale the beam intensity to achieve 
-a total beam power $P$ via
-\begin{eqnarray}
-f_0 = P~\big[2 \pi \int_0^\infty\, r~f(r)~{\rm d}r\big]^{-1}.
-\end{eqnarray}
-Note that this yields a general purpose routine that allows for quite arbitrary
-beam profiles, only required to obey the integrability conditions of a
-Fourier-Bessel transform.
-As a technicality, note that the dFBT $F_0$ of
-the continuous ISP $f$, computed using the $O(M^2)$ algorithm
-Eq.~(\ref{eq:dFBTC}), can be reused at each value of $z$.  In contrast to
-the later function, since $G(r,z)$ is known at a finite number of sample
-points only, its dFBT $G_0$ is obtained via the $O(NM)$ algorithm
-Eq.~(\ref{eq:dFBTD}).
-
+\paragraph{Material response to laser beams with finite extend:}
+% (2) Given GreensFunc -> distribution of absorbed energy density W.
+In order to obtain the desired material response $W(r,z)$ to an extended
+radially symmetric laser beam, the Green's function $G(r,z)$ needs to be
+convolved using an appropriate transverse ISP (irradiation source profile)
+$f(r)$.  
+% (3) Issues with CONV
+In principle this can be done using the publicly available {\tt C} 
+code {\tt CONV} \cite{CONV:1997}, that implements a top-hat and a Gaussian ISP.  
+However, note that since {\tt CONV} features only these two ISPs it is of 
+rather limited use. Albeit allowing for a highly efficient direct convolution
+involving the solution of $1$D integrals only, both beam profiles are not
+consistent with actual profiles observed in laboratory experiments, see, e.g.,
+Refs.~\cite{Paltauf:1997, Paltauf:1998, Paltauf:2000, DAlessandro:2012,
+Blumenroether:2016}.  
+% (4) Remendy: general purpose routive needed 
+Further, on a more general basis, a computationally efficient and more
+versatile solution procedure that allows for convolution with custom ISPs seems
+to be of value.
 
 %%% BEGIN: FIGURE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -641,7 +609,39 @@ $r=0.2\,{\rm{cm}}$ (right).
 \end{figure}
 %%% END: FIGURE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In Fig.~\ref{fig:beamShapes} we illustrate the Fisk-Johnson convolution
+% (5) laser beams with finite extend
+In this regard we follow a different approach by solving the 2D convolution
+problem in terms of the Fourier-Bessel transform in polar coordinates
+\cite{CONV:1997,Baddour:2009} 
+\begin{equation}
+W(r,z) = \mathsf{polConv}[f,G](r,z) = 2 \pi f_0 \int_0^\infty G_0(\rho,z) F_0(\rho) J_0(\rho r)\rho~{\rm d}\rho, \label{eq:polConvW}
+\end{equation}
+following the discretization procedure detailed in section \ref{sec:dFBT}. 
+Therein, $G$ stands for the laser absorption Green's function computed for an 
+infinitely narrow laser beam, normally incident upon the material surface.
+For our exemplary numerical experiments we used the custom ``donut'' ISP
+\begin{equation}
+f(r) = 
+\cases{
+\exp\{-(r-r_0)^2/a_0^2\} &for $r<r_0$\\
+1 &for $r_0\le r \le r_1$\\
+\exp\{-(r-r_1)^2/a_1^2\} &for $r>r_1$\\}.\label{eq:donut}
+\end{equation}
+The respective dFBTs are given by $F_0$ and $G_0$.
+In the above equation, $f_0$ allows to scale the beam intensity to achieve 
+a total beam power $P$ via
+\begin{eqnarray}
+f_0 = P~\big[2 \pi \int_0^\infty\, r~f(r)~{\rm d}r\big]^{-1}.
+\end{eqnarray}
+Note that this yields a general purpose routine that allows for quite arbitrary
+beam profiles, only required to obey the integrability conditions of a
+Fourier-Bessel transform.  As a technicality, note that the dFBT $F_0$ of the
+continuous ISP $f$, computed using the $O(M^2)$ algorithm Eq.~(\ref{eq:dFBTC}),
+can be reused at each value of $z$.  In contrast to the later function, since
+$G(r,z)$ is known at a finite number of sample points only, its dFBT $G_0$ is
+obtained via the $O(NM)$ algorithm Eq.~(\ref{eq:dFBTD}).
+
+In Fig.~\ref{fig:beamShapes} we illustrate the convolution
 procedure for various anisotropy parameters and three beam shapes:
 (i) a Gaussian ISP (G), i.e.\ a special case of Eq.~(\ref{eq:donut}) with
 $r_0=0$, $r_1=0$ and $a_1=0.25$ where we used the dFBT parameters $T=4.0$ 
@@ -666,15 +666,6 @@ expect, Figs.~\ref{fig:beamShapes} and \ref{fig:WSlices} reveal two tendencies:
 reduces and its absolute values decreases since backscattering is suppressed, 
 and, (ii) for increasing $g$, the maximum $W_{\rm max}$ shifts towards deeper 
 values of $z$ since scattering is focused on the forward direction.
-  A thorough discussion of the characteristics of extended beam profiles and
-their use in tissue optics and optoacoustic signal prediction for multilayered
-tissues will be presented elsewhere \cite{MelchertOA:2016}.
-
-% 1}}}
-
-% SUMMARY AND CONCLUSIONS 1{{{
-\section{Summary and conclusions}
-\label{sec:fin}
 
 %%% BEGIN: FIGURE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -696,35 +687,8 @@ of the Fisk-Johnson algorithm.
 \end{figure}
 %%% END: FIGURE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In the presented article we discussed the Fisk-Johnson procedure for computing
-a $2$D polar convolution of two radially symmetric functions, based on
-efficient discrete approximations to the forward and reverse Fourier-Bessel
-integral transform. 
-We assessed the efficiency and accuracy of the forward transform, reverse
-transform and polar convolution on a set of test functions and applied the
-method to a problem from computational biophotonics. Therein, the aim was to
-convolve the Green's function material response to an infinitely thin laser
-beam to an extended beam profile.
-From a point of view of computational efficiency, the presented procedure 
-resides between the highly efficient but ISP-restricted direct convolution
-(implemented in terms of the {\tt CONV} code \cite{CONV:1997}) and the 
-inefficient but accurate straight forward numerical quadrature used for 
-benchmarking in section \ref{sec:examples}.
-
-For completeness, note that there is also a rather recent method that allows
-for the calculation of Fourier-Bessel expansions and dHTs of order zero with an
-asymptotic running time $O(N \log(N)^2/\log\log(N))$ \cite{Townsend:2015}.
-However, as indicated by the benchmarks and conclusions presented in the
-latter reference, the elaborate numerical procedure outperforms the naive dHT
-algorithm only for $N\geq 6000$ ($N\geq 2000$) if a working accuracy $\epsilon$
-(defined in Ref.\ \cite{Townsend:2015}) of $\epsilon = 10^{-15}$ ($10^{-8}$) is
-aimed for. 
-Note that the application presented earlier in section \ref{sec:polarConv}
-features $N\leq 1414$ and is thus solved more efficiently by the Fisk-Johnson
-procedure than by the asymptotically faster method presented in Ref.\
-\cite{Townsend:2015}.
-
-Further, note that (time) efficiency is an issue: so as to complete the
+\paragraph{Accuracy and computational efficiency:}
+Further, note that time efficiency is an issue: so as to complete the
 convolution procedure for, say, the sampled source volume at $g=0.95$, an
 individual convolution has to be carried out for a sequence of $N_z=1414$
 consecutive values of $z$, each involving a number of $N_r=1000$ sample points
@@ -739,19 +703,57 @@ benchmarking in section~\ref{sec:examples} terminates after $\approx
 326\,{\rm{s}}$, highlighting the efficiency of the Fisk-Johnson polar
 convolution for the considered application. 
 
+% 1}}}
+
+% SUMMARY AND CONCLUSIONS 1{{{
+\section{Summary and conclusions}
+\label{sec:fin}
+
+In the presented article we discussed a time efficient algorithmic procedure
+for computing a $2$D polar convolution of two radially symmetric functions,
+based on discrete approximations of the forward and reverse Fourier-Bessel
+integral transform. 
+The specific objective of this study was to exploit the time efficiency of the
+procedure, and to assess whether it outperforms a naive approach, for
+applications in computational biophotonics that require a large number of polar
+convolutions. 
+In procedural terms, we provided a solver for a problem in tissue optics where
+the task is to convolve the Green's function response of a
+multilayered tissue with a custom radially symmetric irradiation source profile
+to yield the response to a laser-beam of finite extend. Note that the 
+presented approach nicely complements the publicly available {\tt CONV} code
+\cite{CONV:1997}, which is restricted to a top-hat or Gaussian ISP.
+We found that, from a point of view of computational efficiency, the presented
+procedure resides between the highly efficient but ISP-restricted direct
+convolution (implemented by the {\tt CONV} code) and the less efficient but
+accurate straight forward numerical quadrature used for benchmarking in section
+\ref{sec:examples}.
+Hence, we conclude that, considering realistic custom ISPs, the presented
+approach to beam-shape convolution in computational biophotonics should be
+preferred over the assessed alternatives.
+
+For completeness, note that there is also a rather recent method that allows
+for the calculation of Fourier-Bessel expansions and dHTs of order zero with an
+asymptotic running time $O(N \log(N)^2/\log\log(N))$ \cite{Townsend:2015}.
+However, as indicated by the benchmarks and conclusions presented in the latter
+reference, the elaborate numerical procedure outperforms the naive dHT
+algorithm only for $N\geq 6000$ ($N\geq 2000$) if a working accuracy $\epsilon$
+(defined in Ref.\ \cite{Townsend:2015}) of $\epsilon = 10^{-15}$ ($10^{-8}$) is
+aimed for.  Note that the application discussed in section \ref{sec:polarConv}
+has $N\leq 1414$ and is thus solved more efficiently by our procedure than by
+the asymptotically faster method presented in Ref.\ \cite{Townsend:2015}.
+
 Albeit the scientific literature frequently features new algorithic
 descriptions to compute the above (and further related) transforms for
 particular scientific applications, their thorough exploration and
 implementation in terms of, say, symbolic computer algebra and scripting
 languages is rather recent \cite{Dovlo:2015,Baddour:2017}.  Since the discrete
 Fourier-Bessel transform and the polar convolution are valuable computational
-tools for the solution of many physical problems with axial symmetry, and since
-the non-availability of code impedes transparency and reproducability of
-results in scientific publications \cite{Barnes:2010,Ince:2012,Sandve:2013} we
-considered it useful to make the concise research-code for the presented study,
-along with all scripts needed to reproduce all figures, publicly available
+tools for the solution of many physical problems with axial symmetry, 
+and to facilitate transparency and reproducability of results in scientific
+publications \cite{Barnes:2010,Ince:2012,Sandve:2013}, we made the concise
+research-code used in the presented study publicly available
 \cite{Melchert_gitHub_dFBT:2016}.
-
 % 1}}}
 
 % ACKNOWLEDGEMENTS {{{1 
@@ -987,8 +989,8 @@ class FourierBesselTransformTestCase(unittest.TestCase):
         fk  = F0FJC*2./(self.T*self.T*scs.j1(j)**2)
 
         for im in range(self.N):
-           for ik in range(self.N):
-                 Fm[im] += Y(im,ik)*fk[ik]
+            for ik in range(self.N):
+                Fm[im] += Y(im,ik)*fk[ik]
 
         fkScaled = fk /scs.j1(j)
         FmScaled = Fm /scs.j1(j)

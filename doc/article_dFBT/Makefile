@@ -1,6 +1,4 @@
-FNAME=FJTrafo_v3
-#FNAME=diff
-#FNAME=FJTrafo_v1
+FNAME=FJTrafo_v4
 
 ps: dvi
 	dvips $(FNAME).dvi

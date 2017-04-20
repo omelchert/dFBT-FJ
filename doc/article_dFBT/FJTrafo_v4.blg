@@ -1,0 +1,47 @@
+This is BibTeX, Version 0.99d (TeX Live 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: FJTrafo_v4.aux
+The style file: unsrt.bst
+Database file #1: commentsBibfile_FourierBesselTrafo.bib
+Database file #2: masterBibfile_FourierBesselTrafo.bib
+You've used 31 entries,
+            1791 wiz_defined-function locations,
+            654 strings with 8896 characters,
+and the built_in function-call counts, 6294 in all, are:
+= -- 534
+> -- 293
+< -- 0
++ -- 111
+- -- 80
+* -- 425
+:= -- 1053
+add.period$ -- 96
+call.type$ -- 31
+change.case$ -- 30
+chr.to.int$ -- 0
+cite$ -- 31
+duplicate$ -- 259
+empty$ -- 637
+format.name$ -- 80
+if$ -- 1377
+int.to.chr$ -- 0
+int.to.str$ -- 31
+missing$ -- 26
+newline$ -- 161
+num.names$ -- 29
+pop$ -- 58
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 103
+stack$ -- 0
+substring$ -- 382
+swap$ -- 31
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 59
+width$ -- 33
+write$ -- 343
